@@ -66,6 +66,13 @@ static void cs_cmd_register(sourceinfo_t *si, int parc, char *parv[])
 		return;
 	}
 
+	if ( name[ 1 ]  == '^' )
+	{
+		command_fail(si, fault_badparams, STR_INVALID_PARAMS, "REGISTER");
+		command_fail(si, fault_badparams, _("Cannot register channel, reserved for bridges"));
+		return;
+	}
+
 	if (si->smu->flags & MU_WAITAUTH)
 	{
 		command_fail(si, fault_notverified, _("You need to verify your email address before you may register channels."));
